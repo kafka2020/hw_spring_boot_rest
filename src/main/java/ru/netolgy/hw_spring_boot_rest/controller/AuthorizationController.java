@@ -1,6 +1,9 @@
 package ru.netolgy.hw_spring_boot_rest.controller;
 
+import jakarta.validation.Valid;
+import ru.netolgy.hw_spring_boot_rest.annotation.UserCredentials;
 import ru.netolgy.hw_spring_boot_rest.model.Authorities;
+import ru.netolgy.hw_spring_boot_rest.model.User;
 import ru.netolgy.hw_spring_boot_rest.service.AuthorizationService;
 import org.springframework.web.bind.annotation.*;
 
@@ -15,8 +18,7 @@ public class AuthorizationController {
     }
 
     @GetMapping("/authorize")
-    public List<Authorities> getAuthorities(@RequestParam("user") String user,
-                                            @RequestParam("password") String password) {
-        return service.getAuthorities(user, password);
+    public List<Authorities> getAuthorities(@Valid @UserCredentials User user) {
+        return service.getAuthorities(user);
     }
 }
